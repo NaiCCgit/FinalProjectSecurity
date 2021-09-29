@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import tw.com.finalproject.naiChuan.Model.Model;
+import tw.com.finalproject.naiChuan.Model.Service.ModelService;
 import tw.com.finalproject.naiChuan.TestDrive.TestDriveApointment;
 import tw.com.finalproject.naiChuan.TestDrive.Service.TestDriveApointmentService;
 
@@ -24,7 +29,9 @@ public class ApointmentAPIController {
 
 	@Autowired
 	private TestDriveApointmentService tdriveService;
-
+	@Autowired
+	private ModelService modelService;
+	
 	// 找全部
 	@GetMapping("/getAllTestdrive")
 	public List<TestDriveApointment> getAllTestdrive() {
@@ -53,9 +60,14 @@ public class ApointmentAPIController {
 	}
 
 	// 新增
-	@PostMapping(path = "/addTestdrive", produces = "text/plain;charset=UTF-8")
-	public String addTestdrive(TestDriveApointment testdrive) throws IOException {
-
+	@PostMapping(path = "/addTestdrive")
+	public String addTestdrive(String json) throws IOException {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		Map<String, String> map = objectMapper.readValue(json, new TypeReference<Map<String, String>>() {
+		});
+		
 		String formId;
 		String sales;
 		String formTime;
@@ -73,16 +85,25 @@ public class ApointmentAPIController {
 
 		// 抓系統時間做為formTime
 		formTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
-
+		
+		TestDriveApointment testdrive = new TestDriveApointment();
+		
+		// 從車型名稱抓車型，作為屬性車型
+		String carModString = map.get("carMod");
+		Model carMod = modelService.findByIdModel(carModString);
+		testdrive.setCarMod(carMod);
+		
 		// 把TimCli得到的 checkbox 轉成 無逗號字串
-		testdrive.setTimCli(testdrive.getTimCli().replace(",", ""));
+		testdrive.setTimCli(map.get("timCli").replace(",", ""));
+		
 		testdrive.setFormId(formId);
 		testdrive.setSales(sales);
 		testdrive.setFormTime(formTime);
-		testdrive.setNameCli(testdrive.getNameCli().trim());
-		testdrive.setMailCli(testdrive.getMailCli().trim());
-		testdrive.setTelCli(testdrive.getTelCli().trim());
-		testdrive.setRemark(testdrive.getRemark().trim());
+		
+		testdrive.setNameCli(map.get("nameCli").trim());
+		testdrive.setMailCli(map.get("mailCli").trim());
+		testdrive.setTelCli(map.get("telCli").trim());
+		testdrive.setRemark(map.get("remark").trim());
 
 		tdriveService.createTestdrive(testdrive);
 		return "success";

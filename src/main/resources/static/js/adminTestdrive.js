@@ -1017,7 +1017,7 @@ function toLocsit2(){
 			$("#3formId").html(res.formId);
 			$("#3date").html(res.driveDate);
 			$("#3driveTime").html(res.driveTime);
-			$("#3carmod").html(res.carMod);
+			$("#3carmod").html(res.carMod.modelType);
 			$("#3loc").html(res.driveLoc);
 			$("#3locsit").html(res.driveLocSit);
 			$("#3sale").html(res.sales);

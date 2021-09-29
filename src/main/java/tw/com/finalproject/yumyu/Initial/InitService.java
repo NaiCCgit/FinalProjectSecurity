@@ -119,35 +119,7 @@ public class InitService {
 //		Create default News
 		news.createDefaultNewsData();
 		System.out.println("-- Created default News ---\r\n");
-
-
-//		Create default Test Drive Apointment
-
-		TestDriveApointment defaulTestdrive1 = TestDriveApointment.builder().formId("Xx111111111").driveDate("2021-10-07")
-				.driveTime("10").carMod("A3").driveLoc("臺北市").driveLocSit("內湖").sales("Alex").formTime("2021/08/22 14:16:35")
-				.nameCli("王大大").gendCli("先生").timCli("早").mailCli("aaa@gmail.com").telCli("0912345678").remark("").build();
-		TestDriveApointment defaulTestdrive2 = TestDriveApointment.builder().formId("Xx222222222").driveDate("2021-10-07")
-				.driveTime("16").carMod("A4").driveLoc("臺北市").driveLocSit("大安").sales("Beth").formTime("2021/07/21 10:22:53")
-				.nameCli("陳美美").gendCli("小姐").timCli("早午").mailCli("bbbb@gmail.com").telCli("0923456789").remark("").build();
-		TestDriveApointment defaulTestdrive3 = TestDriveApointment.builder().formId("PxAfyu22222").driveDate("2021-10-11")
-				.driveTime("12").carMod("A3").driveLoc("臺中市").driveLocSit("北屯").sales("Andy Chen").formTime("2021/08/28 10:24:23")
-				.nameCli("陳國政").gendCli("先生").timCli("午").mailCli("cccc@gmail.com").telCli("0923456789").remark("").build();
-		TestDriveApointment defaulTestdrive4 = TestDriveApointment.builder().formId("Yufhg252872").driveDate("2021-09-20")
-				.driveTime("16").carMod("A5").driveLoc("臺北市").driveLocSit("大安").sales("Cath Liu").formTime("2021/09/01 10:32:51")
-				.nameCli("林梅芳").gendCli("小姐").timCli("早午").mailCli("jbjb@gmail.com").telCli("0923456789").remark("").build();
-		TestDriveApointment defaulTestdrive5 = TestDriveApointment.builder().formId("Hugq2182625").driveDate("2021-10-18")
-				.driveTime("10").carMod("Q3").driveLoc("高雄市").driveLocSit("左營").sales("Eric Yu").formTime("2021/09/09 11:22:50")
-				.nameCli("陳雅芳").gendCli("小姐").timCli("早午晚").mailCli("bqbq@gmail.com").telCli("0923456789").remark("").build();
-		TestDriveApointment defaulTestdrive6 = TestDriveApointment.builder().formId("RWgq2G82695").driveDate("2021-09-28")
-				.driveTime("13").carMod("A3").driveLoc("高雄市").driveLocSit("左營").sales("Eric Yu").formTime("2021/09/14 11:12:42")
-				.nameCli("林婉柔").gendCli("小姐").timCli("晚").mailCli("jjwwo@gmail.com").telCli("0923456987").remark("").build();
 		
-		testdriveApointmentService.createTestdrive(defaulTestdrive1);
-		testdriveApointmentService.createTestdrive(defaulTestdrive2);
-		testdriveApointmentService.createTestdrive(defaulTestdrive3);
-		testdriveApointmentService.createTestdrive(defaulTestdrive4);
-		testdriveApointmentService.createTestdrive(defaulTestdrive5);
-		testdriveApointmentService.createTestdrive(defaulTestdrive6);
 
 //		Create default Model
 		File a3_1jpg = new File("src/main/resources/static/images/model/A3_1.jpg"); FileInputStream a3_1fis = new FileInputStream(a3_1jpg);
@@ -258,6 +230,34 @@ public class InitService {
 		modelService.createModel(defaultModel3);
 		modelService.createModel(defaultModel4);
 
+//		Create default Test Drive Apointment
+
+		TestDriveApointment defaulTestdrive1 = TestDriveApointment.builder().formId("Xx111111111").driveDate("2021-10-07")
+				.driveTime("10").carMod(defaultModel1).driveLoc("臺北市").driveLocSit("內湖").sales("Alex").formTime("2021/08/22 14:16:35")
+				.nameCli("王大大").gendCli("先生").timCli("早").mailCli("aaa@gmail.com").telCli("0912345678").remark("").build();
+		TestDriveApointment defaulTestdrive2 = TestDriveApointment.builder().formId("Xx222222222").driveDate("2021-10-07")
+				.driveTime("16").carMod(defaultModel2).driveLoc("臺北市").driveLocSit("大安").sales("Beth").formTime("2021/07/21 10:22:53")
+				.nameCli("陳美美").gendCli("小姐").timCli("早午").mailCli("bbbb@gmail.com").telCli("0923456789").remark("").build();
+		TestDriveApointment defaulTestdrive3 = TestDriveApointment.builder().formId("PxAfyu22222").driveDate("2021-10-11")
+				.driveTime("12").carMod(defaultModel1).driveLoc("臺中市").driveLocSit("北屯").sales("Andy Chen").formTime("2021/08/28 10:24:23")
+				.nameCli("陳國政").gendCli("先生").timCli("午").mailCli("cccc@gmail.com").telCli("0923456789").remark("").build();
+		TestDriveApointment defaulTestdrive4 = TestDriveApointment.builder().formId("Yufhg252872").driveDate("2021-09-20")
+				.driveTime("16").carMod(defaultModel3).driveLoc("臺北市").driveLocSit("大安").sales("Cath Liu").formTime("2021/09/01 10:32:51")
+				.nameCli("林梅芳").gendCli("小姐").timCli("早午").mailCli("jbjb@gmail.com").telCli("0923456789").remark("").build();
+		TestDriveApointment defaulTestdrive5 = TestDriveApointment.builder().formId("Hugq2182625").driveDate("2021-10-18")
+				.driveTime("10").carMod(defaultModel4).driveLoc("高雄市").driveLocSit("左營").sales("Eric Yu").formTime("2021/09/09 11:22:50")
+				.nameCli("陳雅芳").gendCli("小姐").timCli("早午晚").mailCli("bqbq@gmail.com").telCli("0923456789").remark("").build();
+		TestDriveApointment defaulTestdrive6 = TestDriveApointment.builder().formId("RWgq2G82695").driveDate("2021-09-28")
+				.driveTime("13").carMod(defaultModel1).driveLoc("高雄市").driveLocSit("左營").sales("Eric Yu").formTime("2021/09/14 11:12:42")
+				.nameCli("林婉柔").gendCli("小姐").timCli("晚").mailCli("jjwwo@gmail.com").telCli("0923456987").remark("").build();
+		
+		testdriveApointmentService.createTestdrive(defaulTestdrive1);
+		testdriveApointmentService.createTestdrive(defaulTestdrive2);
+		testdriveApointmentService.createTestdrive(defaulTestdrive3);
+		testdriveApointmentService.createTestdrive(defaulTestdrive4);
+		testdriveApointmentService.createTestdrive(defaulTestdrive5);
+		testdriveApointmentService.createTestdrive(defaulTestdrive6);
+		
 		//		Create default Center
 		File Neihujpg = new File("src\\main\\resources\\static\\images\\center\\01.jpg");
 		FileInputStream Neihujpgg = new FileInputStream(Neihujpg);

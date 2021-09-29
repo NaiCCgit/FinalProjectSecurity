@@ -499,7 +499,7 @@ function search(searchFormId){
 	if(res.formId){
 		$("#firstRow :first-child").html(res.formId)
 		$("#firstRow :first-child").next().html(res.driveDate +", "+res.driveTime+"點")
-		$("#firstRow :first-child").next().next().html(res.carMod)
+		$("#firstRow :first-child").next().next().html(res.carMod.modelType)
 		$("#firstRow :last-child").prev().prev().html(res.driveLoc)
 		$("#firstRow :last-child").prev().html(res.driveLocSit)
 		$("#firstRow :last-child").html(res.sales)

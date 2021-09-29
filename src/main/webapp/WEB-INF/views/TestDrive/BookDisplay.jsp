@@ -80,7 +80,7 @@
 
             <tr>
               <td>試駕車種:</td>
-              <td class="client-data-display">${newTestdrive.carMod}</td>
+              <td class="client-data-display">${newTestdrive.carMod.modelType}</td>
             </tr>
 
             <tr>
@@ -144,7 +144,7 @@
                 <input type="hidden" name="formId" value="${newTestdrive.formId}">
                 <input type="hidden" name="driveDate" value="${newTestdrive.driveDate}">
                 <input type="hidden" name="driveTime" value="${newTestdrive.driveTime}">
-                <input type="hidden" name="carMod" value="${newTestdrive.carMod}">
+                <input type="hidden" name="carMod" value="${newTestdrive.carMod.modelType}">
                 <input type="hidden" name="driveLoc" value="${newTestdrive.driveLoc}">
                 <input type="hidden" name="driveLocSit" value="${newTestdrive.driveLocSit}">
                 <input type="hidden" name="sales" value="${newTestdrive.sales}">

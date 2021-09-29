@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
 import tw.com.finalproject.Mail.MailService;
+import tw.com.finalproject.naiChuan.Model.Service.ModelService;
 import tw.com.finalproject.naiChuan.TestDrive.ReCaptchaResponse;
 import tw.com.finalproject.naiChuan.TestDrive.TestDriveApointment;
 import tw.com.finalproject.naiChuan.TestDrive.Service.TestDriveApointmentService;
@@ -53,7 +54,10 @@ public class TestDrivePageController {
 
 	@Autowired
 	private MailService mailService;
-
+	
+	@Autowired
+	private ModelService modelService;
+	
 	@GetMapping("/PrivacyPolicy")
 	public String privacyPolicies() {
 		return "TestDrive/PrivacyPolicy";
@@ -122,7 +126,7 @@ public class TestDrivePageController {
 	public String updateCarFormConfirm(
 //			HttpServletRequest request, 
 			@RequestParam("formId") String formId,@RequestParam("driveDate") String driveDate,
-			@RequestParam("driveTime") String driveTime, @RequestParam("carMod") String carMod, 
+			@RequestParam("driveTime") String driveTime, @RequestParam("carMod") String carModString, 
 			@RequestParam("driveLoc") String driveLoc, @RequestParam("driveLocSit") String driveLocSit, 
 			@RequestParam("sales") String sales, @RequestParam("formTime") String formTime, 
 			@RequestParam("nameCli") String nameCli, @RequestParam("gendCli") String gendCli, 
@@ -135,6 +139,9 @@ public class TestDrivePageController {
 			strbuf.append(timCliArr[i]);
 		}
 		timCli = strbuf.toString();
+		
+		// 以carMod去抓Model作為Model
+		tw.com.finalproject.naiChuan.Model.Model carMod = modelService.findByIdModel(carModString);
 
 		tdriveService.updateTestdrive(new TestDriveApointment(formId, driveDate, driveTime, carMod,
 				driveLoc, driveLocSit, sales, formTime, nameCli, gendCli, timCli, mailCli, telCli, remark));
@@ -175,7 +182,7 @@ public class TestDrivePageController {
 				+ "</span><br/>您的修改後的預約資訊如下:<br/>"
 				+ "<br/><div style='text-align: center'><table width=550 ; style='font-size:18px; border-collapse:collapse;border:2px solid #7DCEA0'>"
 				+ "<tr style='background-color:#D4EFDF'><td>試駕日期</td><td>試駕車種</td><td>試駕地區</td><td>試駕據點</td></tr>"
-				+ "<tr style='background-color:#EBF5FB;padding:12px;'><td>" + driveDate +", " + driveTime + "點</td><td>" + carMod
+				+ "<tr style='background-color:#EBF5FB;padding:12px;'><td>" + driveDate +", " + driveTime + "點</td><td>" + carMod.getModelType()
 				+ "</td><td>" + driveLoc + "</td><td>" + driveLocSit + "</td></tr></table></div>"
 				+ "您可以以您的表單ID，至以下網址查詢或修改您的完整表單資訊"
 				+ "<br/><a style='font-size:20px' href=\'http://localhost:8080/FinalProject/TestDrive'>Audi AG 於此檢查預約詳情</a>"
@@ -193,7 +200,7 @@ public class TestDrivePageController {
 	// 新增_初步輸入
 	@PostMapping("/addForm")
 	public String addForm(@RequestParam("driveDate") String driveDate,
-			@RequestParam("driveTime") String driveTime, @RequestParam("carMod") String carMod,
+			@RequestParam("driveTime") String driveTime, @RequestParam("carMod") String carModString,
 			@RequestParam("driveLoc") String driveLoc, @RequestParam("driveLocSit") String driveLocSit,
 			@RequestParam("nameCli") String nameCli, @RequestParam("gendCli") String gendCli,
 			@RequestParam("timCli") String[] timCliArr, @RequestParam("mailCli") String mailCli,
@@ -218,7 +225,11 @@ public class TestDrivePageController {
 
 		// 抓系統時間做為formTime
 		formTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+		
+		// 以carMod去抓Model作為Model
+		tw.com.finalproject.naiChuan.Model.Model carMod = modelService.findByIdModel(carModString);
 
+		
 		// 迴圈抓取selected的checkbox
 		StringBuffer strbuf = new StringBuffer();
 		for (int i = 0; i < timCliArr.length; i++) {
@@ -227,7 +238,7 @@ public class TestDrivePageController {
 		timCli = strbuf.toString();
 
 		// 以有參數建構子，新增 Testdrive
-		TestDriveApointment testdrive = new TestDriveApointment(formId, driveDate.trim(), driveTime, carMod.trim(),
+		TestDriveApointment testdrive = new TestDriveApointment(formId, driveDate.trim(), driveTime, carMod,
 				driveLoc.trim(), driveLocSit.trim(), sales, formTime, nameCli.trim(), gendCli.trim(), timCli,
 				mailCli.trim(), telCli.trim(), remark.trim());
 		// 放到Session
@@ -281,7 +292,7 @@ public class TestDrivePageController {
 	// 新增_確認儲存
 	@PostMapping("/addFormConfirm")
 	public String addFormConfirm(@RequestParam("formId") String formId, @RequestParam("driveDate") String driveDate,
-			@RequestParam("driveTime") String driveTime, @RequestParam("carMod") String carMod, 
+			@RequestParam("driveTime") String driveTime, @RequestParam("carMod") String carModString, 
 			@RequestParam("driveLoc") String driveLoc, @RequestParam("driveLocSit") String driveLocSit, 
 			@RequestParam("sales") String sales, @RequestParam("formTime") String formTime, 
 			@RequestParam("nameCli") String nameCli, @RequestParam("gendCli") String gendCli, 
@@ -294,6 +305,9 @@ public class TestDrivePageController {
 			return "errorPage/404";
 		}
 		// reCAP
+		
+		// 以carMod去抓Model作為Model
+		tw.com.finalproject.naiChuan.Model.Model carMod = modelService.findByIdModel(carModString);
 
 		TestDriveApointment testdrive = new TestDriveApointment(formId, driveDate, driveTime, carMod, driveLoc, driveLocSit, sales,
 				formTime, nameCli, gendCli, timCli, mailCli, telCli, remark);
@@ -336,7 +350,7 @@ public class TestDrivePageController {
 					+ "</span><br/>您的預約資訊如下:<br/>"
 					+ "<br/><div style='text-align: center'><table width=550 ; style='font-size:18px; border-collapse:collapse;border:2px solid #7DCEA0'>"
 					+ "<tr style='background-color:#D4EFDF'><td>試駕日期</td><td>試駕車種</td><td>試駕地區</td><td>試駕據點</td></tr>"
-					+ "<tr style='background-color:#EBF5FB;padding:12px;'><td>"+driveDate+", "+driveTime+"點</td><td>" + carMod
+					+ "<tr style='background-color:#EBF5FB;padding:12px;'><td>"+driveDate+", "+driveTime+"點</td><td>" + carMod.getModelType()
 					+ "</td><td>" + driveLoc + "</td><td>" + driveLocSit + "</td></tr></table></div>"
 					+ "您可以以您的表單ID，至以下網址查詢或修改您的完整表單資訊"
 					+ "<br/><a style='font-size:20px' href=\'http://localhost:8080/FinalProject/TestDrive'>Audi AG 於此檢查預約詳情</a>"

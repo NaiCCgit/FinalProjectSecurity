@@ -954,7 +954,7 @@
 						}
 					},
 					{data: "driveTime", responsivePriority:3},
-					{data: "carMod"},
+					{data: "carMod.modelType"},
 					{data: "driveLoc", responsivePriority:4},
 					{data: "driveLocSit", responsivePriority:5},
 					{data: "sales"},
@@ -1048,7 +1048,7 @@
 				$("#2formTime").val(res.formTime);
 				$("#2date").val(res.driveDate);
 				$("#2driveTime").val(res.driveTime);
-				$("#2carmod").val(res.carMod);
+				$("#2carmod").val(res.carMod.modelType);
 				$("#2loc").val(res.driveLoc);
 				toLocsit2();
 				$("#2locsit").val(res.driveLocSit);
