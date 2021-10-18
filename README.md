@@ -51,10 +51,11 @@ Front-End:
 
 
 
+## Written by
+技術長 游聿民 - [@joeyauing](https://github.com/joeyaung)
 
 
 
 ## Contact
-技術長 游聿民 - [@joeyauing](https://github.com/joeyaung)
-
-[joe120106@gmail.com](joe120106@gmail.com)
+游聿民 - [@joeyauing](https://github.com/joeyaung) - [joe120106@gmail.com](joe120106@gmail.com)
+鄭乃銓 - [@NaiCCgit](https://github.com/NaiCCgit) - [joekshs@gmail.com](joekshs@gmail.com)
